@@ -10,7 +10,7 @@ function ModalMovie(props) {
                 <Modal.Title>{props.movieData.title}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Image src={props.movieData.image_path} width='100%'></Image>
+                <Image src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2`+props.movieData.poster_path} width='100%'></Image>
                 <p>{props.movieData.overview}</p>
             
             </Modal.Body>
@@ -26,4 +26,4 @@ function ModalMovie(props) {
   )
 }
 
-export default ModalMovie
+export default ModalMovie;
