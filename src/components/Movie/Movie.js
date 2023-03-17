@@ -12,7 +12,7 @@ function Movie(props) {
     const [showFlag,setShowFlag] = useState(false);
     const [clickedMovie, setClickedMovie] = useState({});
     const handleShow = (props) =>{
-        console.log(props.myMovie);
+        console.log(props);
         setClickedMovie(props.myMovie);
         setShowFlag(true);
     }
@@ -27,7 +27,7 @@ function Movie(props) {
         <Card.Title>{props.myMovie.title && <h3>Movie Name: {props.myMovie.title}</h3>}</Card.Title>
         <h4>ID:{props.myMovie.id}</h4>
         <Card.Text className={showLines ? '' :'showLess' }>{props.myMovie.overview} </Card.Text>
-        <Button variant="primary" onClick={() => {handleShow(props.myMovie)}}>More Details</Button>
+        <Button variant="primary" onClick={() => {handleShow(props)}}>More Details</Button>
       </Card.Body>
     </Card>
     <ModalMovie showFlag={showFlag} handleClose={handleClose} movieData={clickedMovie}/>
