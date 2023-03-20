@@ -27,7 +27,7 @@ function FavList() {
   return (
     <>
       <h1>FavList</h1>
-      <MovieList data={favArr} takeNewArr={takeNewArr} parent="FavList"/>
+      <MovieList data={favArr} takeNewArr={takeNewArr} parent="FavList" sendReq={sendReq} />
 
     </>
   )
