@@ -8,7 +8,7 @@ import Row from 'react-bootstrap/Row';
     <>
     <Row xs={1} md={3} className="g-4">
      {props.data.map(item =>{
-        return <Movie myMovie ={item}/>
+        return <Movie myMovie ={item} parent={props.parent}/>
 
      })}
 
