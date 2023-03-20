@@ -5,21 +5,22 @@ import Col from 'react-bootstrap/Col';
 import ModalMovie from '../ModalMovie/ModalMovie';
 import UpdateModal from '../UpdateModal/UpdateModal';
 import './Movie.css'
+import axios from 'axios';
 
 
 
 function Movie(props) {
   const [showLines, setShowLines] = useState(false);
   const [showFlag, setShowFlag] = useState(false);
-  const [clickedMovie, setClickedMovie] = useState({});
+
   const [updateFlag, setUpdateFlag] = useState(false);
-  const [newArr, setNewArr] =useState([]);
-  
+  const [newArr, setNewArr] = useState([]);
+
 
   // more details functions
   const handleShow = (props) => {
     console.log(props);
-    setClickedMovie(props.myMovie);
+
     setShowFlag(true);
   }
   const handleClose = () => {
@@ -29,7 +30,7 @@ function Movie(props) {
   // Update button functions
   const showUpdateModal = (props) => {
     setUpdateFlag(true);
-    setClickedMovie(props.myMovie);
+
     console.log(props);
   }
 
@@ -37,11 +38,14 @@ function Movie(props) {
     setUpdateFlag(false);
   }
 
-  const takeNewArrFromChild = (arr) => {
-    // console.log("parent Comp",arr);
-    // props.takeNewArr(arr);
-    setNewArr(arr);
-}
+  const deleteMovie = async() => {
+    console.log(props.myMovie.id);
+    const serverURl = `${process.env.REACT_APP_APIURL}/myMovies/${props.myMovie.id}`
+    const axiosRes = await axios.delete(serverURl);
+    console.log(axiosRes.data);
+    props.sendReq();
+  }
+
 
 
   return (
@@ -54,14 +58,14 @@ function Movie(props) {
           <Card.Text className={showLines ? '' : 'showLess'}>{props.myMovie.overview} </Card.Text>
           {props.parent === "Home" && <Button variant="primary" onClick={() => { handleShow(props) }} >More Details</Button>}
           {props.parent === "FavList" && <><Button variant="primary" onClick={() => { handleShow(props) }} >Details</Button>
-            <Button variant="success" onClick={() => {showUpdateModal(props)}} >Update</Button>
-            <Button variant="danger">Delete</Button>
+            <Button variant="success" onClick={() => { showUpdateModal(props) }} >Update</Button>
+            <Button variant="danger" onClick={deleteMovie}>Delete</Button>
 
           </>}
         </Card.Body>
       </Card>
-      <ModalMovie showFlag={showFlag} handleClose={handleClose} movieData={clickedMovie} />
-      <UpdateModal updateFlag={updateFlag} closeUpdateModal={closeUpdateModal} item={clickedMovie} takeNewArrFromChild={takeNewArrFromChild} />
+      <ModalMovie showFlag={showFlag} handleClose={handleClose} movieData={props.myMovie} />
+      <UpdateModal updateFlag={updateFlag} closeUpdateModal={closeUpdateModal} item={props.myMovie} sendReq={props.sendReq} />
     </Col>
 
   )
