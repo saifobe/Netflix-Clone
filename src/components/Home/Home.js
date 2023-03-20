@@ -18,7 +18,7 @@ import MovieList from '../MovieList/MovieList';
     }, []);
   return (
     <>
-     <MovieList data={movieData}/>
+     <MovieList data={movieData} parent="Home"/>
     </>
   )
 }
